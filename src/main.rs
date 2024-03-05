@@ -7,15 +7,15 @@ use utils::{
 };
 use crate::row::{
     Display,
-    Row
+    Row,
+    Header
 };
 
 fn main() {
     let pairs = vec![
-        ("Hostname", Information::Hostname),
         ("Window Manager", Information::WindowManager),
         ("Session type", Information::SessionType),
-        ("User", Information::User),
+        ("Shell", Information::Shell),
     ];
 
     let rows: Vec<_> = pairs
@@ -34,6 +34,21 @@ fn main() {
         .max()
         .unwrap_or(0);
 
+    let total_width = rows
+        .iter()
+        .map(|row| row.len(title_width))
+        .max()
+        .unwrap_or(0);
+
+    let header = Header {
+       value: format!(
+          "{}@{}",
+          get_information(&Information::User).unwrap_or(String::new()),
+          get_information(&Information::Hostname).unwrap_or(String::new()),
+       )
+    };
+
+    println!("{}", header.format(total_width));
     for row in rows {
         println!("{}", row.format(title_width))
     }

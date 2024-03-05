@@ -4,7 +4,8 @@ pub enum Information {
     Hostname,
     WindowManager,
     SessionType,
-    User
+    User,
+    Shell
 }
 
 pub fn get_information(info: &Information) -> Option<String> {
@@ -16,5 +17,13 @@ pub fn get_information(info: &Information) -> Option<String> {
         Information::WindowManager => env::var("XDG_CURRENT_DESKTOP").ok(),
         Information::SessionType => env::var("XDG_SESSION_TYPE").ok(),
         Information::User => env::var("USER").ok(),
+        Information::Shell => match env::var("SHELL") {
+            Ok(shell) => shell
+                .split("/")
+                .collect::<Vec<_>>()
+                .last()
+                .map(|&s| s.to_string()),
+            Err(_) => None
+        },
     }
 }
