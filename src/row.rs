@@ -4,11 +4,18 @@ pub struct Row {
 }
 
 pub trait Display {
-    fn format(&self) -> String;
+    fn format(&self, word_length: usize) -> String;
 }
 
 impl Display for Row {
-    fn format(&self) -> String {
-        format!("{}: {}", self.title, self.value)
+    fn format(&self, word_length: usize) -> String {
+        let needed_padding = word_length - self.title.len();
+        let padding_whitespace = " ".repeat(needed_padding);
+
+        format!(
+            "{}{padding_whitespace}  {}",
+            self.title,
+            self.value
+        )
     }
 }

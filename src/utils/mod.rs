@@ -1,3 +1,6 @@
-mod enviroment;
+mod information;
 
-pub use enviroment::pairs_to_rows;
+pub use information::{
+    Information,
+    get_information
+};

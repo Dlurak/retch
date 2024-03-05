@@ -1,19 +1,40 @@
 mod row;
 mod utils;
 
-use utils::pairs_to_rows;
-use crate::row::Display;
+use utils::{
+    Information,
+    get_information
+};
+use crate::row::{
+    Display,
+    Row
+};
 
 fn main() {
     let pairs = vec![
-        ("Window Manager", "XDG_CURRENT_DESKTOP"),
-        ("Session tpye", "XDG_SESSION_TYPE"),
-        ("User", "USER"),
-        ("Hostname", "HOSTNAME")
+        ("Hostname", Information::Hostname),
+        ("Window Manager", Information::WindowManager),
+        ("Session type", Information::SessionType),
+        ("User", Information::User),
     ];
-    let rows = pairs_to_rows(pairs);
+
+    let rows: Vec<_> = pairs
+        .iter()
+        .filter_map(|(title, information)| get_information(information)
+            .map(|inf| Row {
+                title: title.to_string(),
+                value: inf
+            })
+        )
+        .collect();
+
+    let title_width = rows
+        .iter()
+        .map(|row| row.title.len())
+        .max()
+        .unwrap_or(0);
 
     for row in rows {
-        println!("{}", row.format())
+        println!("{}", row.format(title_width))
     }
 }
