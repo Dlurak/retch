@@ -8,7 +8,8 @@ use utils::{
 use crate::row::{
     Display,
     Row,
-    Header
+    Header,
+    Section
 };
 
 fn main() {
@@ -28,28 +29,16 @@ fn main() {
         )
         .collect();
 
-    let title_width = rows
-        .iter()
-        .map(|row| row.title.len())
-        .max()
-        .unwrap_or(0);
-
-    let total_width = rows
-        .iter()
-        .map(|row| row.len(title_width))
-        .max()
-        .unwrap_or(0);
-
-    let header = Header {
-       value: format!(
-          "{}@{}",
-          get_information(&Information::User).unwrap_or(String::new()),
-          get_information(&Information::Hostname).unwrap_or(String::new()),
-       )
+    let section = Section {
+        header: Some(Header {
+            value: format!(
+                "{}@{}",
+                get_information(&Information::User).unwrap_or(String::new()),
+                get_information(&Information::Hostname).unwrap_or(String::new()),
+            )
+        }),
+        rows 
     };
 
-    println!("{}", header.format(total_width));
-    for row in rows {
-        println!("{}", row.format(title_width))
-    }
+    println!("{}", section.format(0));
 }
