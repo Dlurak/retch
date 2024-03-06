@@ -14,6 +14,11 @@ Simply execute the `retch` binary to display your system information.
 
 ```bash
 $ time ./target/release/retch
+```
+
+**Output:**
+
+```
      .--.     ┌───────dlurak@homie───────┐
     |o_o |    │ Window Manager  Hyprland │
     |:_/ |    │ Session type    wayland  │
