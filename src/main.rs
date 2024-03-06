@@ -9,6 +9,7 @@ use utils::{
     strings,
     vecs
 };
+
 use crate::row::{
     Display,
     Row,
@@ -49,12 +50,13 @@ fn main() {
         .collect::<Vec<_>>()
         .len();
 
-    let art = vecs::fill_til_length(
-        get_artwork(&Artwork::Tux),
-        section_row_amount,
-        ""
+    let art = strings::fill_vec_to_len(
+        vecs::fill_til_length(
+            get_artwork(&Artwork::Tux),
+            section_row_amount,
+            ""
+        )
     );
-    let art = strings::fill_vec_to_len(art);
 
     let output_lines = vecs::create_pairs(
         art.iter().map(|s| s.as_str()).collect::<Vec<_>>(),
