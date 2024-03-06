@@ -1,3 +1,5 @@
+use crate::utils::strings::fill_to_len;
+
 pub trait Display {
     fn format(&self, word_length: usize) -> String;
     fn len(&self, word_length: usize) -> usize {
@@ -24,12 +26,9 @@ pub struct Row {
 
 impl Display for Row {
     fn format(&self, word_length: usize) -> String {
-        let needed_padding = word_length - self.title.len();
-        let padding_whitespace = " ".repeat(needed_padding);
-
         format!(
-            "{}{padding_whitespace}  {}",
-            self.title,
+            "{}  {}",
+            fill_to_len(&self.title, word_length),
             self.value
         )
     }
@@ -55,14 +54,10 @@ impl Display for Section {
 
         let rows: Vec<_> = self.rows
             .iter()
-            .map(|r| {
-                let formatted = r.format(title_width);
-
-                let needed_padding = total_width - formatted.len();
-                let padding_whitespace = " ".repeat(needed_padding);
-
-                format!("│ {formatted}{padding_whitespace} │")
-            })
+            .map(|r| format!(
+                "│ {} │",
+                fill_to_len(&r.format(title_width), total_width)
+            ))
             .collect();
 
         let vertical_base = match &self.header {

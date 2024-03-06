@@ -5,7 +5,9 @@ use utils::{
     Information,
     get_information,
     Artwork,
-    get_artwork
+    get_artwork,
+    strings,
+    vecs
 };
 use crate::row::{
     Display,
@@ -40,8 +42,28 @@ fn main() {
             )
         }),
         rows 
-    };
+    }.format(0);
 
-    println!("{}", section.format(0));
-    println!("{}", get_artwork(&Artwork::Tux).join("\n"));
+    let section_row_amount = section
+        .split("\n")
+        .collect::<Vec<_>>()
+        .len();
+
+    let art = vecs::fill_til_length(
+        get_artwork(&Artwork::Tux),
+        section_row_amount,
+        ""
+    );
+    let art = strings::fill_vec_to_len(art);
+
+    let output_lines = vecs::create_pairs(
+        art.iter().map(|s| s.as_str()).collect::<Vec<_>>(),
+        section.split("\n").collect()
+    );
+
+    for line in output_lines {
+        let first = line.0.unwrap_or("");
+        let second = line.1.unwrap_or("");
+        println!("{first}  {second}");
+    }
 }
