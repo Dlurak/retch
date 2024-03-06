@@ -20,8 +20,8 @@ use crate::row::{
 fn main() {
     let pairs = vec![
         ("Window Manager", Information::WindowManager),
-        ("Session type", Information::SessionType),
         ("Shell", Information::Shell),
+        ("Memory", Information::Memory),
     ];
 
     let rows: Vec<_> = pairs
