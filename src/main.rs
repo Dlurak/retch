@@ -3,7 +3,9 @@ mod utils;
 
 use utils::{
     Information,
-    get_information
+    get_information,
+    Artwork,
+    get_artwork
 };
 use crate::row::{
     Display,
@@ -41,4 +43,5 @@ fn main() {
     };
 
     println!("{}", section.format(0));
+    println!("{}", get_artwork(&Artwork::Tux).join("\n"));
 }
