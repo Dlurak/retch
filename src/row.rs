@@ -8,7 +8,7 @@ pub trait Display {
 }
 
 pub struct Header {
-    pub value: String
+    pub value: String,
 }
 
 impl Display for Header {
@@ -26,11 +26,7 @@ pub struct Row {
 
 impl Display for Row {
     fn format(&self, word_length: usize) -> String {
-        format!(
-            "{}  {}",
-            fill_to_len(&self.title, word_length),
-            self.value
-        )
+        format!("{}  {}", fill_to_len(&self.title, word_length), self.value)
     }
 }
 
@@ -41,23 +37,18 @@ pub struct Section {
 
 impl Display for Section {
     fn format(&self, _total_len: usize) -> String {
-        let title_width = self.rows
-            .iter()
-            .map(|r| r.title.len())
-            .max()
-            .unwrap_or(0);
-        let total_width = self.rows
+        let title_width = self.rows.iter().map(|r| r.title.len()).max().unwrap_or(0);
+        let total_width = self
+            .rows
             .iter()
             .map(|r| r.len(title_width))
             .max()
             .unwrap_or(0);
 
-        let rows: Vec<_> = self.rows
+        let rows: Vec<_> = self
+            .rows
             .iter()
-            .map(|r| format!(
-                "│ {} │",
-                fill_to_len(&r.format(title_width), total_width)
-            ))
+            .map(|r| format!("│ {} │", fill_to_len(&r.format(title_width), total_width)))
             .collect();
 
         let vertical_base = match &self.header {
@@ -66,12 +57,7 @@ impl Display for Section {
         };
         let top_border = format!("┌{}┐", vertical_base);
         let bottom_border = format!("└{}┘", vertical_base);
-        
-        format!(
-            "{}\n{}\n{}",
-            top_border,
-            rows.join("\n"),
-            bottom_border
-        )
+
+        format!("{}\n{}\n{}", top_border, rows.join("\n"), bottom_border)
     }
 }

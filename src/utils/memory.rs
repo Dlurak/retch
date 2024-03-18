@@ -5,7 +5,7 @@ enum MemoryUnit {
     MegaByte,
     GigaByte,
     TerraByte,
-    PetaByte
+    PetaByte,
 }
 
 impl MemoryUnit {
@@ -35,7 +35,7 @@ impl MemoryUnit {
 #[derive(Copy, Clone)]
 pub struct Memory {
     pub value: f64,
-    unit: MemoryUnit
+    unit: MemoryUnit,
 }
 
 impl Memory {
@@ -53,18 +53,15 @@ impl Memory {
 
         match self.unit.next_bigger() {
             Some(unit) => Memory {
-                    value: self.value / 1024.0,
-                    unit
-                }.human_size(),
-            None => *self
+                value: self.value / 1024.0,
+                unit,
+            }
+            .human_size(),
+            None => *self,
         }
     }
 
     pub fn format(&self) -> String {
-        format!(
-            "{:.2}{}",
-            self.value,
-            self.unit.abbr()
-        )
+        format!("{:.2}{}", self.value, self.unit.abbr())
     }
 }

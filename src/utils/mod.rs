@@ -1,15 +1,9 @@
-mod information;
 mod art;
+mod information;
+pub mod memory;
 pub mod strings;
 pub mod vecs;
-pub mod memory;
 
-pub use information::{
-    Information,
-    get_information
-};
+pub use information::{get_information, Information};
 
-pub use art::{
-    Artwork,
-    get_artwork,
-};
+pub use art::{get_artwork, Artwork};

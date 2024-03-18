@@ -1,5 +1,5 @@
 pub enum Artwork {
-    Tux
+    Tux,
 }
 
 pub fn get_artwork(name: &Artwork) -> Vec<&str> {
@@ -12,6 +12,6 @@ pub fn get_artwork(name: &Artwork) -> Vec<&str> {
             "  (|     | )",
             " /'\\_   _/`\\",
             " \\___)=(___/",
-        ]
+        ],
     }
 }

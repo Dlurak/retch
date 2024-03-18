@@ -7,11 +7,7 @@ pub fn fill_to_len(string: &str, desired_len: usize) -> String {
 }
 
 pub fn fill_vec_to_len(strings: Vec<&str>) -> Vec<String> {
-    let max_width = strings
-        .iter()
-        .map(|str| str.len())
-        .max()
-        .unwrap_or(0);
+    let max_width = strings.iter().map(|str| str.len()).max().unwrap_or(0);
 
     strings
         .iter()
