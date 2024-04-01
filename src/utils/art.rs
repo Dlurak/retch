@@ -1,5 +1,6 @@
 pub enum Artwork {
     Tux,
+    None,
 }
 
 pub fn get_artwork(name: &Artwork) -> Vec<&str> {
@@ -13,5 +14,6 @@ pub fn get_artwork(name: &Artwork) -> Vec<&str> {
             " /'\\_   _/`\\",
             " \\___)=(___/",
         ],
+        Artwork::None => vec![],
     }
 }

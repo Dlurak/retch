@@ -1,9 +1,9 @@
 mod row;
 mod utils;
 
-use utils::{get_artwork, get_information, strings, vecs, Artwork, Information};
-
 use crate::row::{Display, Header, Row, Section};
+use std::env;
+use utils::{get_artwork, get_information, strings, vecs, Artwork, Information};
 
 fn main() {
     let pairs = vec![
@@ -36,14 +36,22 @@ fn main() {
 
     let section_row_amount = section.split("\n").collect::<Vec<_>>().len();
 
+    let art_name = env::args().nth(1).unwrap_or("".to_string()).to_lowercase();
+    let art_name = art_name.as_str();
+    let art_enum = match art_name {
+        "tux" => Artwork::Tux,
+        "none" => Artwork::None,
+        _ => Artwork::Tux,
+    };
+
     let art = strings::fill_vec_to_len(vecs::fill_til_length(
-        get_artwork(&Artwork::Tux),
+        get_artwork(&art_enum),
         section_row_amount,
         "",
     ));
 
     let output_lines = vecs::create_pairs(
-        art.iter().map(|s| s.as_str()).collect::<Vec<_>>(),
+        art.iter().map(String::as_str).collect::<Vec<_>>(),
         section.split("\n").collect(),
     );
 

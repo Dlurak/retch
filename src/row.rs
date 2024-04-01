@@ -26,7 +26,7 @@ pub struct Row {
 
 impl Display for Row {
     fn format(&self, word_length: usize) -> String {
-        format!("{}  {}", fill_to_len(&self.title, word_length), self.value)
+        format!("{}  {}", fill_to_len(&self.title, &word_length), self.value)
     }
 }
 
@@ -48,7 +48,7 @@ impl Display for Section {
         let rows: Vec<_> = self
             .rows
             .iter()
-            .map(|r| format!("│ {} │", fill_to_len(&r.format(title_width), total_width)))
+            .map(|r| format!("│ {} │", fill_to_len(&r.format(title_width), &total_width)))
             .collect();
 
         let vertical_base = match &self.header {
