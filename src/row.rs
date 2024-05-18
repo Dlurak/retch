@@ -51,9 +51,15 @@ impl Display for Section {
             .map(|r| format!("│ {} │", fill_to_len(&r.format(title_width), &total_width)))
             .collect();
 
+        let vertical_width = if (title_width % 2) == 0 {
+            total_width + 2
+        } else {
+            total_width + 3
+        };
+
         let vertical_base = match &self.header {
-            Some(h) => h.format(total_width + 2),
-            None => "─".repeat(total_width + 2),
+            Some(h) => h.format(vertical_width),
+            None => "─".repeat(vertical_width),
         };
         let top_border = format!("┌{}┐", vertical_base);
         let bottom_border = format!("└{}┘", vertical_base);

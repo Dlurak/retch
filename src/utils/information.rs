@@ -30,7 +30,7 @@ pub fn get_information(info: &Information) -> Option<String> {
         Information::User => env::var("USER").ok(),
         Information::Shell => match env::var("SHELL") {
             Ok(shell) => shell
-                .split("/")
+                .split('/')
                 .collect::<Vec<_>>()
                 .last()
                 .map(|&s| s.to_string()),

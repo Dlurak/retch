@@ -14,7 +14,7 @@ pub fn create_pairs<T: Copy, U: Copy>(vect1: Vec<T>, vect2: Vec<U>) -> Vec<(Opti
     let mut result: Vec<(Option<T>, Option<U>)> = vec![];
 
     loop {
-        result.push((vect1.get(i).map(|&x| x), vect2.get(i).map(|&x| x)));
+        result.push((vect1.get(i).copied(), vect2.get(i).copied()));
 
         i += 1;
         if i >= vect1.len() && i >= vect2.len() {

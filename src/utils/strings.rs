@@ -11,6 +11,6 @@ pub fn fill_vec_to_len(strings: Vec<&str>) -> Vec<String> {
 
     strings
         .iter()
-        .map(|str| fill_to_len(*str, &max_width))
+        .map(|str| fill_to_len(str, &max_width))
         .collect::<Vec<_>>()
 }

@@ -6,7 +6,7 @@ use std::env;
 use utils::{get_artwork, get_information, strings, vecs, Artwork, Information};
 
 fn main() {
-    let pairs = vec![
+    let pairs = [
         ("Window Manager", Information::WindowManager),
         ("Shell", Information::Shell),
         ("Memory", Information::Memory),
@@ -26,15 +26,15 @@ fn main() {
         header: Some(Header {
             value: format!(
                 "{}@{}",
-                get_information(&Information::User).unwrap_or(String::new()),
-                get_information(&Information::Hostname).unwrap_or(String::new()),
+                get_information(&Information::User).unwrap_or_default(),
+                get_information(&Information::Hostname).unwrap_or_default()
             ),
         }),
         rows,
     }
     .format(0);
 
-    let section_row_amount = section.split("\n").collect::<Vec<_>>().len();
+    let section_row_amount = section.split('\n').collect::<Vec<_>>().len();
 
     let art_name = env::args().nth(1).unwrap_or("".to_string()).to_lowercase();
     let art_name = art_name.as_str();
@@ -52,7 +52,7 @@ fn main() {
 
     let output_lines = vecs::create_pairs(
         art.iter().map(String::as_str).collect::<Vec<_>>(),
-        section.split("\n").collect(),
+        section.split('\n').collect(),
     );
 
     for line in output_lines {
